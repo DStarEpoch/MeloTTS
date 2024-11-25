@@ -20,7 +20,7 @@ def cleaned_text_to_sequence(cleaned_text, tones, language, symbol_to_id=None):
     return phones, tones, lang_ids
 
 
-def get_bert(norm_text, word2ph, language, device):
+def get_bert(norm_text, word2ph, language, device, model_id=None):
     from .chinese_bert import get_bert_feature as zh_bert
     from .english_bert import get_bert_feature as en_bert
     from .japanese_bert import get_bert_feature as jp_bert
@@ -31,5 +31,8 @@ def get_bert(norm_text, word2ph, language, device):
 
     lang_bert_func_map = {"ZH": zh_bert, "EN": en_bert, "JP": jp_bert, 'ZH_MIX_EN': zh_mix_en_bert, 
                           'FR': fr_bert, 'SP': sp_bert, 'ES': sp_bert, "KR": kr_bert}
-    bert = lang_bert_func_map[language](norm_text, word2ph, device)
+    if not model_id:
+        bert = lang_bert_func_map[language](norm_text, word2ph, device)
+    else:
+        bert = lang_bert_func_map[language](norm_text, word2ph, device, model_id=model_id)
     return bert

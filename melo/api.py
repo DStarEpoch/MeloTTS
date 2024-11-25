@@ -80,7 +80,9 @@ class TTS(nn.Module):
             print(" > ===========================")
         return texts
 
-    def tts_to_file(self, text, speaker_id, output_path=None, sdp_ratio=0.2, noise_scale=0.6, noise_scale_w=0.8, speed=1.0, pbar=None, format=None, position=None, quiet=False,):
+    def tts_to_file(self, text, speaker_id, output_path=None, sdp_ratio=0.2, noise_scale=0.6,
+                    noise_scale_w=0.8, speed=1.0, pbar=None, format=None, position=None, quiet=False,
+                    bert_model_path=None):
         language = self.language
         texts = self.split_sentences_into_pieces(text, language, quiet)
         audio_list = []
@@ -97,7 +99,8 @@ class TTS(nn.Module):
             if language in ['EN', 'ZH_MIX_EN']:
                 t = re.sub(r'([a-z])([A-Z])', r'\1 \2', t)
             device = self.device
-            bert, ja_bert, phones, tones, lang_ids = utils.get_text_for_tts_infer(t, language, self.hps, device, self.symbol_to_id)
+            bert, ja_bert, phones, tones, lang_ids = utils.get_text_for_tts_infer(t, language, self.hps, device,
+                                                                                  self.symbol_to_id, bert_mode_path=bert_model_path)
             with torch.no_grad():
                 x_tst = phones.to(device).unsqueeze(0)
                 tones = tones.to(device).unsqueeze(0)

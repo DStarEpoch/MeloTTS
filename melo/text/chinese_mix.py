@@ -194,9 +194,9 @@ def text_normalize(text):
     return text
 
 
-def get_bert_feature(text, word2ph, device):
+def get_bert_feature(text, word2ph, device, model_id='bert-base-multilingual-uncased'):
     from . import chinese_bert
-    return chinese_bert.get_bert_feature(text, word2ph, model_id='bert-base-multilingual-uncased', device=device)
+    return chinese_bert.get_bert_feature(text, word2ph, model_id=model_id, device=device)
 
 from .chinese import _g2p as _chinese_g2p
 def _g2p_v2(segments):
