@@ -2,8 +2,8 @@ botocore==1.35.66
 colorama==0.4.6
 txtsplit
 typer==0.11.0
-torch
-torchaudio
+torch==2.5.0
+torchaudio==2.5.0
 cached_path
 transformers==4.27.4
 num2words==0.5.12
