@@ -9,3 +9,4 @@ RUN apt-get update && apt-get install -y \
 RUN pip install -e .
 RUN python -m unidic download
 RUN python melo/init_downloads.py
+RUN python -m nltk.downloader averaged_perceptron_tagger_eng
